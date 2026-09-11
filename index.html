@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date?</title>
-    <link rel="stylesheet" href="style.css">
 
     
     <style>
@@ -147,8 +146,28 @@ body, html{
 }
 
 @media screen and (max-width: 600px){
+    html,
+    body{
+        min-height: 100%;
+        height: auto;
+        overflow-x: hidden;
+    }
+
+    body{
+        min-height: 100svh;
+        background-position: center;
+    }
+
     .container{
-        width: 100%;
+        width: min(100%, 380px);
+        min-height: 100svh;
+        height: auto;
+        top: 0;
+        padding: 24px 16px;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     .container h1{
         margin-top: 20px;
@@ -158,53 +177,55 @@ body, html{
     .answer{
         font-size: 20px;
         padding: 5px;
+        width: min(100px, 42vw);
+        height: 48px;
     }
+
+    .gif{
+        height: auto;
+        width: 100%;
+    }
+
     .gifimg{
         border-radius: 10px;
-        width: 300px;
-        height: 198px;
-        background-image: url("https://media1.tenor.com/m/UAFrdZCt29YAAAAC/milk-and-mocha-waiting-for-reply.gif");
+        width: min(100%, 300px);
+        aspect-ratio: 384 / 454;
+        height: auto;
         background-size: cover; 
     }
+
     .fix-gif{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width:100%;
-        height: 200px;
-        
-    
+        height: auto;
+        min-height: 0;
     }
     
     .fix-gifimg{
         border-radius: 10px;
-        width: 300px;
-        height: 168px;
-        background-image: url("https://media1.tenor.com/m/2VprHA868S8AAAAC/yummy-desserts-desserts-milk-mocha.gif");
+        width: min(100%, 300px);
+        aspect-ratio: 384 / 360;
+        height: auto;
         background-size: cover; 
     }
 
     #fix{
-        margin-top: 30px;
-            border: none;
-            width: 250px;
-            height: 50px;
-            font-size: 30px;
-            border-radius: 10px;
-            background: none;
-            backdrop-filter: blur(5px);
-            border: 1px solid black;
-            font-weight: 550;
+        margin: 24px auto 0;
+        width: min(100%, 340px);
+        min-height: 50px;
+        height: auto;
+        padding: 10px 14px;
+        font-size: clamp(18px, 5vw, 26px);
+        line-height: 1.2;
     }
 
     .confirmation{
-        display: none;
-        width: 100%;
-        height: 500px;
+        width: min(100%, 380px);
+        height: auto;
+        min-height: 100svh;
+        padding: 24px 16px;
         position: absolute;
         left: 50%;
-        top: 50%;
-        transform: translate(-50%,-50%);
+        top: 0;
+        transform: translateX(-50%);
         text-align: center;
     }
 }
@@ -232,7 +253,7 @@ body, html{
                 </div>
                 <!-- <a href="https://wa.me/+918595790116?text='Chalo date pr chalein!!!!!' ">
                 </a> -->
-                    <button class="answer" id="fix">Dime que me quieres uwu!!!!</button>
+                    <button class="answer" id="fix">Buena elección,dime que me quieres uwu!!!!</button>
                 
             </div>
     </div>
@@ -245,16 +266,18 @@ const no = document.querySelector("#no");
 const confirmation = document.querySelector(".confirmation");
 const container = document.querySelector(".container");
 
-yesAnswerMethod = () => {
+const yesAnswerMethod = () => {
     container.style.display = 'none'
     confirmation.style.display = 'block'
 }
 
-noAnswerMethod = () => {
+const noAnswerMethod = () => {
     no.style.position = 'absolute'
 
-    xPosition = Math.floor(Math.random() * container.clientWidth)
-    yPosition = Math.floor(Math.random() * container.clientHeight)
+    const maxX = Math.max(0, container.clientWidth - no.offsetWidth)
+    const maxY = Math.max(0, container.clientHeight - no.offsetHeight)
+    const xPosition = Math.floor(Math.random() * maxX)
+    const yPosition = Math.floor(Math.random() * maxY)
 
     no.style.top = `${yPosition}px`
     no.style.left = `${xPosition}px`
